@@ -1,0 +1,90 @@
+<!DOCTYPE html> 
+<html lang="en">
+<head> 
+  <title>React-exercises</title>
+  <meta charset="utf-8" /> 
+    
+  <!--    bootstrap-->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    
+  <!--    JSX-->
+  <script src="https://unpkg.com/react@latest/dist/react.js"></script>
+  <script src="https://unpkg.com/react-dom@latest/dist/react-dom.js"></script>
+  <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+  </head>
+    
+<body>
+    
+    <div class="row" id="part1"></div>
+   
+    
+    
+    <script type="text/babel">
+
+
+
+class Example extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            o: ""
+        };
+        this.changeText = this.changeText.bind(this)
+    }
+    
+    changeText (event) {
+        let newText = event.target.value; 
+        this.setState({o: newText}); 
+    }
+    
+    render () {
+        return ( 
+            
+            <div>
+                <div className="col-sm-12">
+                    <input 
+                        type="text" 
+                        className="form-control" 
+                        id="textInpt" 
+                        placeholder="write something fun here..."
+                        onKeyUp={this.changeText} />
+                    <div id="textDispl">{this.state.o}</div>
+                </div>      
+            </div>
+        );
+    
+    }
+
+}
+
+      /*let Example = React.createClass ({  
+          
+          getInitialState: function () {
+            return   {o: "text Display here"}
+          },
+          
+          changeText: function (event) {
+              let newText = event.target.value; 
+              this.setState({o: newText});      
+          },
+          
+          render: function () {              
+              return (
+//                onKeyUp={this.changeText}
+                <div>
+                    {textDispl.innerHTML = this.state.o}       
+                </div>
+              );
+          }
+      });*/
+
+        ReactDOM.render (
+           <Example />,
+            document.getElementById('part1')
+        );
+    </script>    
+</body>
+</html>
