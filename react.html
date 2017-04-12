@@ -14,10 +14,33 @@
   <script src="https://unpkg.com/react@latest/dist/react.js"></script>
   <script src="https://unpkg.com/react-dom@latest/dist/react-dom.js"></script>
   <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+    
+    <style>
+        .row {
+            margin-top: 100px;
+        }
+        #part1 {
+            font-size: 25pt;
+            color: deeppink;
+        }
+        #part2 {
+            font-size: 20pt;
+            color: deeppink;
+        }
+        body {
+            background-color: black;
+        }
+        h1{
+            font-size: 45pt;
+            color: deeppink;
+        }
+    
+    </style>
   </head>
     
 <body>
   <div class="container">
+    <h1 class="text-center">React exercises</h1>  
     <div class="row" id="part1"></div>
     <div class="row" id="part2"></div>
   </div>
@@ -48,7 +71,7 @@ class One extends React.Component {
                 <div className="col-sm-12">
                     <input 
                         type="text" 
-                        className="form-control" 
+                        className="form-control input-lg" 
                         placeholder="write something fun here..."
                         onKeyUp={this.changeText} />
                     <div>{this.state.o}</div>
@@ -99,7 +122,7 @@ class Two extends React.Component {
                 <div className="col-sm-4">
                     <input 
                         type="text" 
-                        className="form-control"  
+                        className="form-control input-lg"  
                         placeholder="write a number"
                         onChange={this.input1}
                      />
@@ -108,7 +131,7 @@ class Two extends React.Component {
                 <div className="col-sm-4">
                     <input 
                         type="text" 
-                        className="form-control"  
+                        className="form-control input-lg"  
                         placeholder="write a number"
                         onChange={this.input2}
                      />
