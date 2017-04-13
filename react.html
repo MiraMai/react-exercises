@@ -176,27 +176,34 @@ class Three extends React.Component {
         this.state = {
            className1:"classone btn",
            className2:"classone btn",    
-           textDisplay: ""
-//           value: 1 
+           textDisplay: "",
+           value1: 0,
+           value2: 0 ,
+           spanDisplay1: "none",
+           spanDisplay2: "none"    
         };
         
         this.clickOnBtn1 = this.clickOnBtn1.bind(this)
         this.clickOnBtn2 = this.clickOnBtn2.bind(this)
-        this.btnClick = this.btnClick.bind(this)
     }
     
     clickOnBtn1 (event) {
         this.setState({className1: "classtwo btn", className2: "classone btn"});
         this.setState({textDisplay: event.target.innerHTML});
+        this.setState({value1: this.state.value1 +1});
+        this.setState({spanDisplay1: "inline"});
+        this.setState({spanDisplay2: "none"});
+
     }
     clickOnBtn2 (event) {
         this.setState({className2: "classtwo btn", className1: "classone btn"});
         this.setState({textDisplay: event.target.innerHTML});
+        this.setState({value2: this.state.value2 +1});
+        this.setState({spanDisplay2: "inline"});
+        this.setState({spanDisplay1: "none"});
+
     }
-    btnClick () {
-        this.setState({value: this.state.value +1})
-    }
-        
+   
     render () {
         
         return (
@@ -206,7 +213,6 @@ class Three extends React.Component {
                 <div className="col-sm-2">
                     <button className={this.state.className1}
                             onClick={this.clickOnBtn1}
-                        id="stbtn"
                         >
                         Stand up
                     </button>    
@@ -224,6 +230,10 @@ class Three extends React.Component {
                 <div className="col-sm-4"></div>
                 <div className="col-sm-4" id="part3">
                     {this.state.textDisplay}
+                    <span style={{display: this.state.spanDisplay1}}>
+                        {this.state.value1}
+                    </span>
+                    <span style={{display: this.state.spanDisplay2}}>{this.state.value2}</span>
                 </div>
                 <div className="col-sm-4"></div>
             </div>    
