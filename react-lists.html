@@ -67,12 +67,11 @@
             friendly: 'definitely'
         }
         
-        let List = [dog1, dog2, dog3, dog4];
+//        let List = [dog1, dog2, dog3, dog4];
         
-        //gemensam komponent
         class DogList extends React.Component {
             render () {
-                let newList = this.props.List.map(element => <MyList item={element} />);
+                let newList = this.props.List.map(element => <MyListItem item={element} />);
                 return (
                   <div>                                  
                     <div className="col-sm-4"></div>
@@ -86,8 +85,26 @@
             }
         }
         
+        //gemensam component
+        class App extends React.Component {
+            constructor(props) {
+                super(props); 
+                this.state = {
+                    List: [dog1, dog2, dog3, dog4]
+                };
+            }
+            render () {
+                return (
+                  <div>    
+                    <DogList List={this.state.List} />
+                    <AddForm />
+                  </div>        
+                );
+            }
+        }
+        
         // komponent som visar listan
-        class MyList extends React.Component {
+        class MyListItem extends React.Component {
             render () {
                 return (
                     <li className ="Dogs">
@@ -109,11 +126,7 @@
                 }                                          
         }        
             
-        ReactDOM.render (
-            <DogList List={List} />,
-            document.getElementById('myDogList')
-        );
-    
+       
         class AddForm extends React.Component {
             render () {
                 return (
@@ -122,18 +135,22 @@
                         type="text"
                         placeholder="Breed name"
                         />
+                    <br />    
                     <input 
                         type="text"
                         placeholder="size"
                         />
+                    <br />    
                     <input 
                         type="text"
                         placeholder="estimated difficulty to train"
                         />
+                    <br />    
                     <input 
                         type="text"
                         placeholder="estimated energy levels"
                         />
+                    <br />    
                     <input 
                         type="text"
                         placeholder="friendly toward strangers"
@@ -144,8 +161,8 @@
         }
         
         ReactDOM.render (
-            <AddForm />,
-            document.getElementById('inputs')
+            <App />,
+            document.getElementById('myDogList')
         );
     </script>   
     
