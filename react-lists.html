@@ -1,0 +1,167 @@
+<!DOCTYPE html> 
+<html lang="en">
+<head> 
+  <title>Dog breeds</title>
+  <meta charset="utf-8" /> 
+    
+  <!--    bootstrap-->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    
+  <!--    JSX-->
+  <script src="https://unpkg.com/react@latest/dist/react.js"></script>
+  <script src="https://unpkg.com/react-dom@latest/dist/react-dom.js"></script>
+  <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+    
+    <style>
+        #text {
+            color:gray;
+            font-size: 13pt;
+            font-family: Verdana, Geneva, sans-serif;
+        }
+        
+        body {
+            font-size: 16pt;
+            font-family: Arial, Helvetica, sans-serif;
+/*            background-image: url('dog.jpg');*/
+
+        }
+        
+    </style>
+    
+    
+    
+    <script type="text/babel">
+
+        let dog1 = {
+            breedName: 'Basset Hound',
+            size: 'medium',
+            train: 2,
+            energy: 2,
+            friendly: 'definitely'
+        }
+        
+        let dog2 = {
+            breedName: 'Bearded Collie',
+            size: 'medium/large',
+            train: 5,
+            energy: 4,
+            friendly: 'yes'
+        }
+        
+        let dog3 = {
+            breedName: 'Chihuahua',
+            size: 'small',
+            train: 4,
+            energy: 3,
+            friendly: 'not that much'
+        }
+        
+        let dog4 = {
+            breedName: 'English Cocker Spaniel',
+            size: 'medium',
+            train: 4,
+            energy: 5,
+            friendly: 'definitely'
+        }
+        
+        let List = [dog1, dog2, dog3, dog4];
+        
+        //gemensam komponent
+        class DogList extends React.Component {
+            render () {
+                let newList = this.props.List.map(element => <MyList item={element} />);
+                return (
+                  <div>                                  
+                    <div className="col-sm-4"></div>
+                    <div className="col-sm-4">
+                        <ul>{newList}</ul>
+                    </div>
+                    <div className="col-sm-4"></div>
+                  </div>                                      
+
+                );
+            }
+        }
+        
+        // komponent som visar listan
+        class MyList extends React.Component {
+            render () {
+                return (
+                    <li className ="Dogs">
+                        <span id="text">Breed: </span> 
+                        <span>{this.props.item.breedName}</span>
+                        <br />
+                        <span id="text">Size: </span>
+                        <span>{this.props.item.size}</span>
+                        <br />
+                        <span id="text">Train difficulty scaling from 1 to 5: </span> 
+                        <span>{this.props.item.train}</span>
+                        <br />
+                        <span id="text">Energy level scaling from 1 to 5: </span> 
+                        <span>{this.props.item.energy}</span>
+                        <br />
+                        <span id="text">Friendly toward strangers: </span> <span>{this.props.item.friendly}</span>        
+                       </li>
+                    );
+                }                                          
+        }        
+            
+        ReactDOM.render (
+            <DogList List={List} />,
+            document.getElementById('myDogList')
+        );
+    
+        class AddForm extends React.Component {
+            render () {
+                return (
+                  <div>    
+                    <input 
+                        type="text"
+                        placeholder="Breed name"
+                        />
+                    <input 
+                        type="text"
+                        placeholder="size"
+                        />
+                    <input 
+                        type="text"
+                        placeholder="estimated difficulty to train"
+                        />
+                    <input 
+                        type="text"
+                        placeholder="estimated energy levels"
+                        />
+                    <input 
+                        type="text"
+                        placeholder="friendly toward strangers"
+                        />
+                   </div>    
+                );
+            }
+        }
+        
+        ReactDOM.render (
+            <AddForm />,
+            document.getElementById('inputs')
+        );
+    </script>   
+    
+    
+    
+    
+</head>
+    
+<body>
+    <div class="container-fluid"> 
+        <div class="row" id="myDogList"></div>
+        <div class="row" id="inputs"></div>
+    </div>    
+    
+    
+    
+</body>    
+</html>    
+    
