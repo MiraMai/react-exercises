@@ -53,8 +53,7 @@
             coffees: 2
         }
         const coffeeList = [coffee1, coffee2, coffee3];
-//        let List = [dog1, dog2, dog3, dog4];
-        
+
         class CoffeeList extends React.Component {
             render () {
                 let newList = this.props.List.map(element => <MyListItem item={element} />);
@@ -70,20 +69,23 @@
                 );
             }
         }
-        
         //gemensam component
         class App extends React.Component {
             constructor(props) {
                 super(props); 
                 this.state = {
-                    List: coffeeList//[coffee1, coffee2, coffee3]
+                    List: coffeeList,
+                    addName: "",
+                    addAge: "",
+                    addCoffee: ""
                 };
             this.addNewObject= this.addNewObject.bind(this);    
             }
             render () {
                 return (
                   <div>    
-                    <CoffeeList List={this.state.List} />
+                    <CoffeeList List={this.state.List}
+                                />
                     <AddForm addNewObject={this.addNewObject} />
                   </div>        
                 );
@@ -92,10 +94,13 @@
                 const newList = this.state.List.slice();
                 newList.push(newObject);
                 this.setState ({
-                    List: newList//[coffee1, coffee2, coffee3, newObject]
+                    List: newList
                 });
-                console.log(newObject);
-
+            }
+            changeAddName (name) {
+                this.setState ({
+                    addName: name
+                });
             }
         }
         
@@ -104,10 +109,11 @@
             constructor(props) {
                 super(props);
                 this.handleChange = this.handleChange.bind(this);
+                this.changeItem = this.changeItem.bind(this);
             }
             render () {
                 return (
-                    <li>
+                    <li onClick={this.changeItem}>
                         <span id="text">Name: </span> 
                         <span>{this.props.item.name} </span>
                         <br />
@@ -122,6 +128,9 @@
             handleChange (event) {
                 this.props.addNewObject(event.target.value);
             }
+            changeItem (event){
+                this.setState({ addName: this.props.item.name });
+            }
             
         }        
             
@@ -129,15 +138,11 @@
         class AddForm extends React.Component {
             constructor(props) {
                 super(props);
-                this.state = {
-                    addName: "",
-                    addAge: "",
-                    addCoffee: ""
-                }
-            this.nameInputValue = this.nameInputValue.bind(this);
-            this.ageInputValue = this.ageInputValue.bind(this); 
-            this.coffeeInputValue = this.coffeeInputValue.bind(this);  
-            this.clickOnButton = this.clickOnButton.bind(this);    
+
+                this.nameInputValue = this.nameInputValue.bind(this);
+                this.ageInputValue = this.ageInputValue.bind(this); 
+                this.coffeeInputValue = this.coffeeInputValue.bind(this);  
+                this.clickOnButton = this.clickOnButton.bind(this);    
             }
             render () {
                 
@@ -148,6 +153,7 @@
                         className="form-control"
                         placeholder="name"
                         onChange={this.nameInputValue}
+                        value={this.props.addName}
                         />
                     <br />    
                     <input 
@@ -155,6 +161,7 @@
                         className="form-control"
                         placeholder="age"
                         onChange={this.ageInputValue}
+                        value={this.props.addAge}
                         />
                     <br />    
                     <input 
@@ -162,9 +169,11 @@
                         className="form-control"
                         placeholder="cups of coffee"
                         onChange={this.coffeeInputValue}
+                        value={this.props.addCoffee}
                         />
                     <br />    
                     <button 
+                        type="reset"
                         onClick={this.clickOnButton}
                         className="btn">
                         Add</button>
@@ -176,30 +185,12 @@
             // functioner som tar värderna från inputs och sparar dem i variablar
             nameInputValue (event) {
                    this.setState ({ addName: event.target.value });
-                   /*let newObject= {
-                       name: event.target.value,
-                       age: this.state.addAge ,
-                       coffees: this.state.addCoffee
-                   }; 
-                   this.props.addNewObject(newObject); */
             }
             ageInputValue (event) {
                    this.setState ({ addAge: event.target.value });
-                  /* let newObject= {
-                       name: this.state.addName,
-                       age: event.target.value,
-                       coffees: this.state.addCoffee
-                   }; 
-                   this.props.addNewObject(newObject);*/
             }
             coffeeInputValue (event) {
                    this.setState ({ addCoffee: event.target.value });
-                   /*let newObject= {
-                       name: this.state.addName,
-                       age: this.state.addAge,
-                       coffees: event.target.value
-                   }; 
-                   this.props.addNewObject(newObject);*/
             }
             clickOnButton (event) {
                 let newObject= {
@@ -228,7 +219,6 @@
         <h1>Coffee-survey</h1>
         <h3>How many coffees did you drink today?</h3>
         <div class="row" id="myCoffeeList"></div>
-        <div class="row" id="inputs"></div>
     </div>    
     
     
