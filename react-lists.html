@@ -1,7 +1,7 @@
 <!DOCTYPE html> 
 <html lang="en">
 <head> 
-  <title>Dog breeds</title>
+  <title>Coffee-survey</title>
   <meta charset="utf-8" /> 
     
   <!--    bootstrap-->
@@ -35,134 +35,177 @@
     
     <script type="text/babel">
 
-        let dog1 = {
-            breedName: 'Basset Hound',
-            size: 'medium',
-            train: 2,
-            energy: 2,
-            friendly: 'definitely'
+        let coffee1 = {
+            name: 'Mira',
+            age: 34 ,
+            coffees: 1
         }
         
-        let dog2 = {
-            breedName: 'Bearded Collie',
-            size: 'medium/large',
-            train: 5,
-            energy: 4,
-            friendly: 'yes'
+        let coffee2 = {
+            name: 'Beatriz',
+            age: 34 ,
+            coffees: 5
         }
         
-        let dog3 = {
-            breedName: 'Chihuahua',
-            size: 'small',
-            train: 4,
-            energy: 3,
-            friendly: 'not that much'
+        let coffee3 = {
+            name: 'Eleni',
+            age: 33 ,
+            coffees: 2
         }
-        
-        let dog4 = {
-            breedName: 'English Cocker Spaniel',
-            size: 'medium',
-            train: 4,
-            energy: 5,
-            friendly: 'definitely'
-        }
-        
-//        let List = [dog1, dog2, dog3, dog4];
-        
-        class DogList extends React.Component {
-            render () {
-                let newList = this.props.List.map(element => <MyListItem item={element} />);
-                return (
-                  <div>                                  
-                    <div className="col-sm-4"></div>
-                    <div className="col-sm-4">
-                        <ul>{newList}</ul>
-                    </div>
-                    <div className="col-sm-4"></div>
-                  </div>                                      
+        let coffeeList = [coffee1, coffee2, coffee3];
 
-                );
-            }
-        }
-        
-        //gemensam component
         class App extends React.Component {
             constructor(props) {
-                super(props); 
+                super(props);
                 this.state = {
-                    List: [dog1, dog2, dog3, dog4]
+                    list: coffeeList,
+                    addName: "",
+                    addAge: "",
+                    addCoffee: ""
                 };
+//                this.addNewObject = this.addNewObject.bind(this);
+                this.nameInputValue = this.nameInputValue.bind(this);
+                this.ageInputValue = this.ageInputValue.bind(this); 
+                this.coffeeInputValue = this.coffeeInputValue.bind(this); 
+                this.clickOnButton = this.clickOnButton.bind(this);
+                this.clickOnLi = this.clickOnLi.bind(this);
+                
             }
             render () {
                 return (
-                  <div>    
-                    <DogList List={this.state.List} />
-                    <AddForm />
-                  </div>        
+                    <div>
+                        <MyList 
+                                clickOnLi={this.clickOnLi}
+                                list={this.state.list}
+                                addName={this.state.addName}
+                                addAge={this.state.addAge}
+                                addCoffee={this.state.addCoffee} />
+                        <AddForm 
+                                nameInputValue={this.nameInputValue}
+                                ageInputValue={this.ageInputValue}
+                                coffeeInputValue={this.coffeeInputValue}
+                                clickOnButton={this.clickOnButton}
+                                list={this.state.list}
+                                addName={this.state.addName}
+                                addAge={this.state.addAge}
+                                addCoffee={this.state.addCoffee} />
+                    </div>
+                );
+            } 
+            
+            /*addNewObject(newObject) {
+                const newList = this.state.list.slice();
+                newList.push(newObject);
+                this.setState ({
+                    list: newList
+                });
+            }*/
+            
+            nameInputValue(event) {
+                   this.setState ({ addName: event.target.value });
+             }
+            ageInputValue(event) {
+                   this.setState ({ addAge: event.target.value });
+            }
+            coffeeInputValue(event) {
+                   this.setState ({ addCoffee: event.target.value });
+            }
+            //creates a new object and adds it to the list
+            clickOnButton(event) {
+                let newObject= {
+                   name: this.state.addName,
+                   age: this.state.addAge ,
+                   coffees: this.state.addCoffee
+               }; 
+                const newList = this.state.list;
+                newList.push(newObject);
+                this.setState ({
+                    list: newList
+                });
+            }
+           //shows the properties of the object in inputs
+            clickOnLi(event) {
+                 this.setState ({
+                     addName: coffeeList[event.target.id].name,
+                     addAge: coffeeList[event.target.id].age,
+                     addCoffee: coffeeList[event.target.id].coffees
+                 });
+                 
+                 console.log(event.target.id);
+                 console.log(coffeeList[event.target.id].name);
+                 console.log(coffeeList[event.target.id].age);
+                 console.log(coffeeList[event.target.id].coffees);
+                 console.log(coffeeList);
+            }
+
+        }
+        class MyList extends React.Component {
+            
+            render () {
+                let key = 0; 
+                let list = coffeeList.map(item => 
+                    <li onClick={this.props.clickOnLi}
+                        id={key++} key={key}>
+                        Name: {item.name} <br />
+                        Age: 
+                        {item.age} <br />
+                        Cups of coffee:
+                        {item.coffees} <br />
+                    </li>                     
+                 );
+                return (
+                        <div>                  
+                            <div className="col-sm-2"></div>                  
+                            <div className="col-sm-4"><ul>{list}</ul></div>
+                        </div>                                  
                 );
             }
-        }
-        
-        // komponent som visar listan
-        class MyListItem extends React.Component {
-            render () {
-                return (
-                    <li className ="Dogs">
-                        <span id="text">Breed: </span> 
-                        <span>{this.props.item.breedName}</span>
-                        <br />
-                        <span id="text">Size: </span>
-                        <span>{this.props.item.size}</span>
-                        <br />
-                        <span id="text">Train difficulty scaling from 1 to 5: </span> 
-                        <span>{this.props.item.train}</span>
-                        <br />
-                        <span id="text">Energy level scaling from 1 to 5: </span> 
-                        <span>{this.props.item.energy}</span>
-                        <br />
-                        <span id="text">Friendly toward strangers: </span> <span>{this.props.item.friendly}</span>        
-                       </li>
-                    );
-                }                                          
-        }        
             
-       
+        } 
+
+        
         class AddForm extends React.Component {
             render () {
                 return (
-                  <div>    
-                    <input 
-                        type="text"
-                        placeholder="Breed name"
+                    <form className="col-sm-2">    
+                        <input 
+                            type="text"
+                            className="form-control"
+                            placeholder="name"
+                            onChange={this.props.nameInputValue}
+                            value={this.props.addName}
+                          />
+                        <br />    
+                        <input 
+                            type="text"
+                            className="form-control"
+                            placeholder="age"
+                            onChange={this.props.ageInputValue}
+                            value={this.props.addAge}
                         />
-                    <br />    
-                    <input 
-                        type="text"
-                        placeholder="size"
+                        <br />    
+                        <input 
+                            type="text"
+                            className="form-control"
+                            placeholder="cups of coffee"
+                            onChange={this.props.coffeeInputValue}
+                            value={this.props.addCoffee}
                         />
-                    <br />    
-                    <input 
-                        type="text"
-                        placeholder="estimated difficulty to train"
-                        />
-                    <br />    
-                    <input 
-                        type="text"
-                        placeholder="estimated energy levels"
-                        />
-                    <br />    
-                    <input 
-                        type="text"
-                        placeholder="friendly toward strangers"
-                        />
-                   </div>    
+                        <br />    
+                        <button 
+                            type="reset"
+                            onClick={this.props.clickOnButton}
+                            className="btn">
+                        Add</button>
+                   </form>                        
                 );
             }
         }
         
-        ReactDOM.render (
+
+ReactDOM.render (
             <App />,
-            document.getElementById('myDogList')
+            document.getElementById('myCoffeeList')
         );
     </script>   
     
@@ -173,8 +216,9 @@
     
 <body>
     <div class="container-fluid"> 
-        <div class="row" id="myDogList"></div>
-        <div class="row" id="inputs"></div>
+        <h1>Coffee-survey</h1>
+        <h3>How many coffees did you drink today?</h3>
+        <div class="row" id="myCoffeeList"></div>
     </div>    
     
     
