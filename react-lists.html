@@ -33,6 +33,11 @@
             color: beige;
             height: 1000px;
         }
+        @media (max-width:768px) {
+            .sideBar {
+            height: auto;
+            }
+        }
         
         #textInSideBar {
             margin-top: 40px;
@@ -75,6 +80,8 @@
         .btnStyle:hover {
             color: #FFF5EE;
         }
+        
+        
     </style>
     
     
@@ -201,16 +208,16 @@
                  );
                 return (
                         <div>                  
-                            <div className="col-sm-3 sideBar">
+                            <div className="col-sm-4 col-md-3 sideBar">
                                 <div id="textInSideBar">
-                                    <img src="coffee-survey.png" width="370" height="auto" />
+                                    <img className="img-responsive" src="coffee-survey.png" width="370" height="auto" />
                                     <br />
                                     <br />
                                     <p>How many coffees did you drink today?</p>
                                 </div>    
                             </div>  
-                            <div className="col-sm-2"></div>                  
-                            <div className="col-sm-3 marginTop bckC"><ul>{list}</ul></div>
+                            <div className="col-sm-1 col-md-2"></div>                  
+                            <div className="col-sm-4 col-md-3 marginTop bckC"><ul>{list}</ul></div>
                         </div>                                  
                 );
             }
@@ -221,7 +228,7 @@
         class AddForm extends React.Component {
             render () {
                 return (
-                    <form className="col-sm-2 marginTop">    
+                    <form className="col-xs-6 col-sm-3 col-md-2 marginTop">    
                         <input 
                             type="text"
                             className="form-control inputText"
