@@ -25,10 +25,56 @@
         body {
             font-size: 16pt;
             font-family: Arial, Helvetica, sans-serif;
-/*            background-image: url('dog.jpg');*/
-
+            background-image: url('coffee.jpg');
         }
         
+        .sideBar {
+            background-color: #2A140D;
+            color: beige;
+            height: 1000px;
+        }
+        
+        #textInSideBar {
+            margin-top: 40px;
+        }
+        
+        p {
+            font-family: "Arial Black", Gadget, sans-serif;
+            font-size: 15pt;
+            color: #F2D5BE;
+        }
+        
+        ul {
+            color: #FFF5EE;
+        }
+        
+        .marginTop {
+            margin-top: 200px;
+        }
+        
+        .bckC {
+            background-color: #2A140D;
+            border-radius: 15px;
+        }
+        
+        .inputText {
+            font-size: 18pt;
+            background-color: #DFBD9F;
+            color: #FFF5EE;
+        }
+        .btnStyle {
+            font-size: 15pt;
+            background-color: #DFBD9F;
+            color: #2A140D;
+        }
+        
+        ::-webkit-input-placeholder {
+            font-size: 18px;
+        }
+        
+        .btnStyle:hover {
+            color: #FFF5EE;
+        }
     </style>
     
     
@@ -155,8 +201,16 @@
                  );
                 return (
                         <div>                  
+                            <div className="col-sm-3 sideBar">
+                                <div id="textInSideBar">
+                                    <img src="coffee-survey.png" width="370" height="auto" />
+                                    <br />
+                                    <br />
+                                    <p>How many coffees did you drink today?</p>
+                                </div>    
+                            </div>  
                             <div className="col-sm-2"></div>                  
-                            <div className="col-sm-4"><ul>{list}</ul></div>
+                            <div className="col-sm-3 marginTop bckC"><ul>{list}</ul></div>
                         </div>                                  
                 );
             }
@@ -167,10 +221,10 @@
         class AddForm extends React.Component {
             render () {
                 return (
-                    <form className="col-sm-2">    
+                    <form className="col-sm-2 marginTop">    
                         <input 
                             type="text"
-                            className="form-control"
+                            className="form-control inputText"
                             placeholder="name"
                             onChange={this.props.nameInputValue}
                             value={this.props.addName}
@@ -178,7 +232,7 @@
                         <br />    
                         <input 
                             type="text"
-                            className="form-control"
+                            className="form-control inputText"
                             placeholder="age"
                             onChange={this.props.ageInputValue}
                             value={this.props.addAge}
@@ -186,7 +240,7 @@
                         <br />    
                         <input 
                             type="text"
-                            className="form-control"
+                            className="form-control inputText"
                             placeholder="cups of coffee"
                             onChange={this.props.coffeeInputValue}
                             value={this.props.addCoffee}
@@ -195,7 +249,7 @@
                         <button 
                             type="reset"
                             onClick={this.props.clickOnButton}
-                            className="btn">
+                            className="btn btnStyle">
                         Add</button>
                    </form>                        
                 );
@@ -216,8 +270,6 @@ ReactDOM.render (
     
 <body>
     <div class="container-fluid"> 
-        <h1>Coffee-survey</h1>
-        <h3>How many coffees did you drink today?</h3>
         <div class="row" id="myCoffeeList"></div>
     </div>    
     
